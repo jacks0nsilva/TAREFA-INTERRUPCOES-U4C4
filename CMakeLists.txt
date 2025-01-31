@@ -46,7 +46,7 @@ pico_generate_pio_header(TAREFA-INTERRUPCOES-U4C4 ${CMAKE_CURRENT_LIST_DIR}/ws28
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(TAREFA-INTERRUPCOES-U4C4 0)
-pico_enable_stdio_usb(TAREFA-INTERRUPCOES-U4C4 0)
+pico_enable_stdio_usb(TAREFA-INTERRUPCOES-U4C4 1)
 
 # Add the standard library to the build
 target_link_libraries(TAREFA-INTERRUPCOES-U4C4
