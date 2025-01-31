@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "hardware/gpio.h"
+#include "hardware/clocks.h"
+#include "pio_config.h"
+
 
 #define LED_PIN 13 // Define o pino GPIO do LED vermelho
 
