@@ -40,6 +40,10 @@ add_executable(TAREFA-INTERRUPCOES-U4C4 TAREFA-INTERRUPCOES-U4C4.c )
 pico_set_program_name(TAREFA-INTERRUPCOES-U4C4 "TAREFA-INTERRUPCOES-U4C4")
 pico_set_program_version(TAREFA-INTERRUPCOES-U4C4 "0.1")
 
+# Generate PIO header
+pico_generate_pio_header(TAREFA-INTERRUPCOES-U4C4 ${CMAKE_CURRENT_LIST_DIR}/ws2818b.pio)
+
+
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(TAREFA-INTERRUPCOES-U4C4 0)
 pico_enable_stdio_usb(TAREFA-INTERRUPCOES-U4C4 0)
@@ -55,7 +59,8 @@ target_include_directories(TAREFA-INTERRUPCOES-U4C4 PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(TAREFA-INTERRUPCOES-U4C4 
-        
+        hardware_pio
+        hardware_clocks
         )
 
 pico_add_extra_outputs(TAREFA-INTERRUPCOES-U4C4)
