@@ -34,7 +34,7 @@ uint np_sm;
 // Inicializa a máquina PIO
 void npInit(uint pin){
     // Cria uma instância da máquina PIO
-    uint offset = pio_add_program(pin, &ws2818b_program);
+    uint offset = pio_add_program(pio0, &ws2818b_program);
     np_pio = pio0;
 
     // Aloca uma máquina PIO
@@ -52,4 +52,30 @@ void npInit(uint pin){
         leds[i].G = 0;
         leds[i].B = 0;
     }
+}
+
+// Atribui uma cor a um LED específico
+void npSetLED(const uint index, const uint8_t R, const uint8_t G, const uint8_t B){
+    leds[index].R = R;
+    leds[index].G = G;
+    leds[index].B = B;
+}
+
+// limpa o buffer de LEDs
+void npClear(){
+    for(uint i = 0; i < LEDS_COUNT; i++){
+        leds[i].R = 0;
+        leds[i].G = 0;
+        leds[i].B = 0;
+    }
+}
+
+// Escreve o buffer de LEDs no controlador
+void npWrite(){
+    // Escreve cada dado de 8 bits no buffer da máquina PIO
+    for(uint i = 0; i < LEDS_COUNT; i++){
+        uint32_t valor_led = matriz_rgb(leds[i].R, leds[i].G, leds[i].B);
+        pio_sm_put_blocking(np_pio, np_sm, valor_led);
+    }
+    sleep_us(100); // Espera 100us para garantir que todos os dados foram enviados
 }
