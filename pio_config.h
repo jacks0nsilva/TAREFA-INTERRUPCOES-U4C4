@@ -61,7 +61,7 @@ void npSetLED(const uint index, const uint8_t R, const uint8_t G, const uint8_t 
     leds[index].B = B;
 }
 
-// limpa o buffer de LEDs
+// Limpa o buffer de LEDs
 void npClear(){
     for(uint i = 0; i < LEDS_COUNT; i++){
         leds[i].R = 0;
