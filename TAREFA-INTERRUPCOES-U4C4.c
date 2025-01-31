@@ -8,6 +8,7 @@
 #include "gpio_config.h" // Inclui o arquivo de configuração dos pinos GPIO
 int contador = 1;
 int contador2 = 1;
+uint32_t last_time = 0;
 
 void blinkLED(uint duracao){
     gpio_put(LED_PIN, 1); // Liga o LED
@@ -16,7 +17,7 @@ void blinkLED(uint duracao){
     sleep_ms(duracao); // Aguarda a duração
 }
 
-static void gpio_irq_handler(uint gpio, uint32_t events);
+static void gpio_irq_handler(uint gpio, uint32_t events); // Protótipo da função de tratamento da interrupção
 
 int main()
 {
@@ -39,12 +40,19 @@ int main()
     }
 }
 
+// Função de tratamento da interrupção
 void gpio_irq_handler(uint gpio, uint32_t events){
-    if(gpio == BUTTON_A_PIN){
-    printf("Botão A pressionado %d vezes!\n", contador);
-    contador++;
-    } else {
-        printf("Botão B pressionado %d vezes!\n", contador2);
-        contador2++;
+    // Obtem o tempo atual em microssegundos
+    uint32_t current_time = to_us_since_boot(get_absolute_time());
+    // Verifica se o tempo entre as interrupções é maior que 200ms
+    if(current_time - last_time > 200000){ 
+        last_time = current_time;
+        if(gpio == BUTTON_A_PIN){
+        printf("Botão A pressionado %d vezes!\n", contador);
+        contador++;
+        } else {
+            printf("Botão B pressionado %d vezes!\n", contador2);
+            contador2++;
+        }
     }
 }
