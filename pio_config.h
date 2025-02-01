@@ -61,8 +61,11 @@ void np_init(uint pin){
 
     // Inicializa a máquina PIO com o programa ws2812_program
     ws2812_program_init(np_pio, np_sm, offset,pin, 800000, false);
+}
 
-    for(int i = 0; i < LEDS_COUNT; i++){
+void np_clear(){
+    for (int i = 0; i < LEDS_COUNT; i++)
+    {
         put_pixel(0); // Desliga todos os LEDs
     }
 }

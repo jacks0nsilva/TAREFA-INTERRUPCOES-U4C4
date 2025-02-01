@@ -28,40 +28,40 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(TAREFA-INTERRUPCOES-U4C4 C CXX ASM)
+project(Tarefa-Interrupcoes-U4C4 C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(TAREFA-INTERRUPCOES-U4C4 TAREFA-INTERRUPCOES-U4C4.c )
+add_executable(Tarefa-Interrupcoes-U4C4 Tarefa-Interrupcoes-U4C4.c )
 
-pico_set_program_name(TAREFA-INTERRUPCOES-U4C4 "TAREFA-INTERRUPCOES-U4C4")
-pico_set_program_version(TAREFA-INTERRUPCOES-U4C4 "0.1")
+pico_set_program_name(Tarefa-Interrupcoes-U4C4 "Tarefa-Interrupcoes-U4C4")
+pico_set_program_version(Tarefa-Interrupcoes-U4C4 "0.1")
 
 # Generate PIO header
-pico_generate_pio_header(TAREFA-INTERRUPCOES-U4C4 ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio)
+pico_generate_pio_header(Tarefa-Interrupcoes-U4C4 ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio)
 
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(TAREFA-INTERRUPCOES-U4C4 0)
-pico_enable_stdio_usb(TAREFA-INTERRUPCOES-U4C4 1)
+pico_enable_stdio_uart(Tarefa-Interrupcoes-U4C4 0)
+pico_enable_stdio_usb(Tarefa-Interrupcoes-U4C4 1)
 
 # Add the standard library to the build
-target_link_libraries(TAREFA-INTERRUPCOES-U4C4
+target_link_libraries(Tarefa-Interrupcoes-U4C4
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(TAREFA-INTERRUPCOES-U4C4 PRIVATE
+target_include_directories(Tarefa-Interrupcoes-U4C4 PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(TAREFA-INTERRUPCOES-U4C4 
+target_link_libraries(Tarefa-Interrupcoes-U4C4 
         hardware_pio
         hardware_clocks
         )
 
-pico_add_extra_outputs(TAREFA-INTERRUPCOES-U4C4)
+pico_add_extra_outputs(Tarefa-Interrupcoes-U4C4)
 
