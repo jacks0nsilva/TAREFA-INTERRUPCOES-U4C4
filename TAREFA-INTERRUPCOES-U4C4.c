@@ -6,9 +6,10 @@
 #include "hardware/timer.h"
 
 #include "gpio_config.h" // Inclui o arquivo de configuração dos pinos GPIO
-int contador = 1;
-int contador2 = 1;
+
+
 uint32_t last_time = 0;
+int contador = 0;
 
 void blinkLED(uint duracao){
     gpio_put(LED_PIN, 1); // Liga o LED
@@ -16,6 +17,26 @@ void blinkLED(uint duracao){
     gpio_put(LED_PIN, 0); // Desliga o LED
     sleep_ms(duracao); // Aguarda a duração
 }
+
+void numeroZero(){
+    npClear();
+    int ledsIndex[12] = {1,2,3,6,8,11,13,16,18,21,22,23};
+    for(int i = 0; i < 12; i++){
+        npSetLED(ledsIndex[i], 170, 60, 170);
+    }
+    npWrite();
+}
+
+void numeroUm(){
+    npClear();
+    int ledsIndex[8] = {1,2,3,7,12,16,17,22};
+    for(int i = 0; i < 8; i++){
+        npSetLED(ledsIndex[i], 170, 60, 170);
+    }
+    npWrite();
+}
+
+
 
 static void gpio_irq_handler(uint gpio, uint32_t events); // Protótipo da função de tratamento da interrupção
 
@@ -31,17 +52,69 @@ int main()
     initGPIO(BUTTON_B_PIN, false); // Inicializa o pino GPIO do botão B como entrada
     gpio_pull_up(BUTTON_B_PIN); // Habilita o resistor de pull-up interno
 
-    npSetLED(0, 255, 0, 0); // Define a cor do primeiro LED da matriz como vermelho
-    npSetLED(1,100, 0,0);
-    npSetLED(2, 50, 0, 0);
-    npSetLED(3, 25, 0, 0);
-    npSetLED(4, 12, 0, 0);
+
 
     npWrite();
     gpio_set_irq_enabled_with_callback(BUTTON_A_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); // Habilita a interrupção no botão A
     gpio_set_irq_enabled_with_callback(BUTTON_B_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); // Habilita a interrupção no botão B
     while (true) {
         blinkLED(100); // LED vermelho pisca continuamente 5 vezes por segundo
+
+        switch (contador)
+        {
+        case 0:
+            printf("Imprimindo número 0\n");
+            // Imprime o número 0 na matriz de LEDs
+            numeroZero();
+            break;
+        case  1:
+            printf("Imprimindo número 1\n");
+            // Imprime o número 1 na matriz de LEDs
+            numeroUm();
+            break;
+        case  2:
+            printf("Imprimindo número 2\n");
+            // Imprime o número 2 na matriz de LEDs
+            npWrite();
+            break;
+        case 3: 
+            printf("Imprimindo número 3\n");
+            // Imprime o número 3 na matriz de LEDs
+            npWrite();
+            break;
+        case 4:
+            printf("Imprimindo número 4\n");
+            // Imprime o número 4 na matriz de LEDs
+            npWrite();
+            break;
+        case 5:
+            printf("Imprimindo número 5\n");
+            // Imprime o número 5 na matriz de LEDs
+            npWrite();
+            break;
+        case 6:
+            printf("Imprimindo número 6\n");
+            // Imprime o número 6 na matriz de LEDs
+            npWrite();
+            break;
+        case 7:
+            printf("Imprimindo número 7\n");
+            // Imprime o número 7 na matriz de LEDs
+            npWrite();
+            break;
+        case 8:
+            printf("Imprimindo número 8\n");
+            // Imprime o número 8 na matriz de LEDs
+            npWrite();
+            break;
+        case 9:
+            printf("Imprimindo número 9\n");
+            // Imprime o número 9 na matriz de LEDs
+            npWrite();
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -52,12 +125,20 @@ void gpio_irq_handler(uint gpio, uint32_t events){
     // Verifica se o tempo entre as interrupções é maior que 200ms
     if(current_time - last_time > 200000){ 
         last_time = current_time;
-        if(gpio == BUTTON_A_PIN){
-        printf("Botão A pressionado %d vezes!\n", contador);
-        contador++;
-        } else {
-            printf("Botão B pressionado %d vezes!\n", contador2);
-            contador2++;
+        if(gpio == BUTTON_A_PIN){ // Verifica se a interrupção foi no botão A
+            // Incrementa o contador
+            if(contador > 9){
+                contador = 0; 
+            } else{
+                contador++;
+            }
+        } else if(gpio ==  BUTTON_B_PIN) { // Verifica se a interrupção foi no botão B
+            // Decrementa o contador
+            if(contador < 0){
+                contador = 9; 
+            } else{
+                contador--;
+            }
         }
     }
 }
