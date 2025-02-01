@@ -2,11 +2,17 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 #include "hardware/clocks.h"
-#include "pio_config.h"
 #include "hardware/timer.h"
 
-#include "gpio_config.h" // Inclui o arquivo de configuração dos pinos GPIO
-#include "matriz_leds.h"
+#include "libs/pio_config.h" // Inclui o arquivo de configuração da PIO
+#include "libs/gpio_config.c" // Inclui o arquivo de configuração dos pinos GPIO
+#include "libs/matriz_leds.h" // Inclui o cabeçalho de configuração da matriz de LEDs
+
+#define LED_PIN 13 // Define o pino GPIO do LED vermelho
+#define MATRIZ_PIN 7 // Define o pino GPIO da matriz de LEDs
+#define BUTTON_A_PIN 5 // Define o pino GPIO do botão A
+#define BUTTON_B_PIN 6 // Define o pino GPIO do botão B
+
 
 static volatile uint32_t last_time = 0;
 static volatile int contador = 0;
@@ -37,7 +43,7 @@ int main()
     gpio_set_irq_enabled_with_callback(BUTTON_A_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); // Habilita a interrupção no botão A
     gpio_set_irq_enabled_with_callback(BUTTON_B_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); // Habilita a interrupção no botão B
     
-    np_set_leds(matriz[0],0,0,100); // Limpa a matriz de LEDs
+    np_set_leds(matriz[0],0,0,100); // Inicializa a matriz de LEDs com o número 0
     while (true) {
         blinkLED(100); // LED vermelho pisca continuamente 5 vezes por segundo
     }
@@ -51,19 +57,21 @@ void gpio_irq_handler(uint gpio, uint32_t events){
 
     if(current_time - last_time > 200000){ 
         last_time = current_time;
-        if(gpio == BUTTON_A_PIN){ // Verifica se a interrupção foi no botão A
+        // Verifica se a interrupção foi no botão A ou B
+        if(gpio == BUTTON_A_PIN){
                 contador++; // Incrementa o contador
-        } else if(gpio ==  BUTTON_B_PIN) { // Verifica se a interrupção foi no botão B
+        } else if(gpio ==  BUTTON_B_PIN) {
                 contador--; // Decrementa o contador
         }
 
     // Verifica se o contador está fora do intervalo de 0 a 9    
     if(contador > 9){
-        contador = 0;
+        contador = 0; // Caso o contador seja maior que 9, define o contador como 0
     } else if(contador < 0){
-        contador = 9;
+        contador = 9; // Caso o contador seja menor que 0, define o contador como 9
     }
 
-    np_set_leds(matriz[contador],0,0,100); // Define a cor do LED RGB para amarelo
+    np_set_leds(matriz[contador],0,0,100); // Atualiza a matriz de LEDs com o número correspondente ao contador
+    printf("Desenhando o número: %d\n", contador); 
     }
 }
