@@ -41,7 +41,7 @@ pico_set_program_name(TAREFA-INTERRUPCOES-U4C4 "TAREFA-INTERRUPCOES-U4C4")
 pico_set_program_version(TAREFA-INTERRUPCOES-U4C4 "0.1")
 
 # Generate PIO header
-pico_generate_pio_header(TAREFA-INTERRUPCOES-U4C4 ${CMAKE_CURRENT_LIST_DIR}/ws2818b.pio)
+pico_generate_pio_header(TAREFA-INTERRUPCOES-U4C4 ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio)
 
 
 # Modify the below lines to enable/disable output over UART/USB

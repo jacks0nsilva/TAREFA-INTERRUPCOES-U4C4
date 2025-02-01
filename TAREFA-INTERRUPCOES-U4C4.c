@@ -32,6 +32,11 @@ int main()
     gpio_pull_up(BUTTON_B_PIN); // Habilita o resistor de pull-up interno
 
     npSetLED(0, 255, 0, 0); // Define a cor do primeiro LED da matriz como vermelho
+    npSetLED(1,100, 0,0);
+    npSetLED(2, 50, 0, 0);
+    npSetLED(3, 25, 0, 0);
+    npSetLED(4, 12, 0, 0);
+
     npWrite();
     gpio_set_irq_enabled_with_callback(BUTTON_A_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); // Habilita a interrupção no botão A
     gpio_set_irq_enabled_with_callback(BUTTON_B_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); // Habilita a interrupção no botão B
