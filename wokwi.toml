@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/TAREFA-INTERRUPCOES-U4C4.uf2'
+elf = 'build/TAREFA-INTERRUPCOES-U4C4.elf'
