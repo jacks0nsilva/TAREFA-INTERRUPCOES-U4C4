@@ -6,7 +6,7 @@ Tarefa prática do programa de residência EmbarcaTech. O projeto tem como objet
 
 ## **Vídeo de apresentação do projeto**
 
-[Vídeo de apresentação do projeto](...)
+[Vídeo de apresentação do projeto](https://drive.google.com/file/d/16L8Yf-zYkpdHEvUh3KG6svQ3clPE-ReN/view?usp=drive_link)
 
 ---
 
