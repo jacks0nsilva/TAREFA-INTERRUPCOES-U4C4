@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "libs/gpio_config.h"
 
 
 // Inicializa um pino GPIO (Número do pino | 0: Entrada, 1: Saída)

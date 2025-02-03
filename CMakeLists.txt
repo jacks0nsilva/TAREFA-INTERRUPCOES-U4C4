@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(Tarefa-Interrupcoes-U4C4 Tarefa-Interrupcoes-U4C4.c )
+add_executable(Tarefa-Interrupcoes-U4C4 Tarefa-Interrupcoes-U4C4.c libs/gpio_config.c)
 
 pico_set_program_name(Tarefa-Interrupcoes-U4C4 "Tarefa-Interrupcoes-U4C4")
 pico_set_program_version(Tarefa-Interrupcoes-U4C4 "0.1")

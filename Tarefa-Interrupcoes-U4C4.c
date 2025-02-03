@@ -5,7 +5,7 @@
 #include "hardware/timer.h"
 
 #include "libs/pio_config.h" // Inclui o arquivo de configuração da PIO
-#include "libs/gpio_config.c" // Inclui o arquivo de configuração dos pinos GPIO
+#include "libs/gpio_config.h" // Inclui o arquivo de configuração dos pinos GPIO
 #include "libs/matriz_leds.h" // Inclui o cabeçalho de configuração da matriz de LEDs
 
 #define LED_PIN 13 // Define o pino GPIO do LED vermelho
